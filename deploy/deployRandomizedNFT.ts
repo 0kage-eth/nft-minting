@@ -65,7 +65,8 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
     let vrfContractAddress: string = "",
         subscriptionId: string = "",
         keyHash: string = "",
-        callbackGasLimit: string = ""
+        callbackGasLimit: string = "",
+        minEth: string = ""
 
     let numConfirmations: number = 1,
         numWords: number = 1
@@ -94,6 +95,7 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
         }
         numConfirmations = networkConfig[chainId].blockConfirmations!
         callbackGasLimit = networkConfig[chainId].callbackGasLimit!
+        minEth = networkConfig[chainId].minEth!
         keyHash = networkConfig[chainId].keyHash!
         let args: any[] = [
             subscriptionId,
@@ -102,7 +104,7 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
             numConfirmations,
             callbackGasLimit,
             1,
-            ethers.utils.parseEther("0.1"),
+            ethers.utils.parseEther(minEth),
             "0Kage",
             "0K",
             tokenURIs,

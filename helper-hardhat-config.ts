@@ -12,6 +12,7 @@ export interface networkConfigItem {
     gasLimit?: number
     subscriptionId?: string
     callbackGasLimit?: string
+    minEth?: string
 }
 
 export interface networkConfigInfo {
@@ -28,6 +29,7 @@ export const networkConfig: networkConfigInfo = {
         daiEthPriceFeed: "0x773616E4d11A78F511299002da57A0a94577F1f4",
         daiToken: "0x6b175474e89094c44da98b954eedeac495271d0f",
         blockConfirmations: 1,
+        minEth: "0.01",
     },
     // Price Feed Address, values can be obtained at https://docs.chain.link/docs/reference-contracts
     // Default one is ETH/USD contract on Kovan
@@ -39,6 +41,7 @@ export const networkConfig: networkConfigInfo = {
         daiEthPriceFeed: "0x22B58f1EbEDfCA50feF632bD73368b2FdA96D541",
         daiToken: "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD",
         blockConfirmations: 3,
+        minEth: "0.01",
     },
     4: {
         name: "rinkeby",
@@ -50,18 +53,21 @@ export const networkConfig: networkConfigInfo = {
         blockConfirmations: 3,
         callbackGasLimit: "500000",
         subscriptionId: "8854",
+        minEth: "0.01",
     },
     5: {
         name: "goerli",
         linkToken: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
         vrfCoordinator: "0x2Ca8E0C643bDe4C2E08ab1fA0da3401AdAD7734D",
         blockConfirmations: 3,
+        minEth: "0.01",
     },
     1: {
         name: "mainnet",
         linkToken: "0x514910771af9ca656af840dff83e8264ecf986ca",
         vrfCoordinator: "0x271682DEB8C4E0901D1a1550aD2e64D568E69909",
         blockConfirmations: 3,
+        minEth: "0.01",
     },
 }
 

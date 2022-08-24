@@ -95,7 +95,7 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
      * @dev emit a event: NftRequested
      * @dev create a map of requestId -> msg.sender
      */
-    function requestNft() external payable onlyOwner {
+    function requestNft() external payable {
         if (msg.value < s_minEth) {
             revert RandomizedNFT_NotEnoughEth(msg.value, s_minEth);
         }
@@ -205,5 +205,16 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
      */
     function getMinMintValue() public view returns (uint256) {
         return s_minEth;
+    }
+
+    /**
+     * @dev get uri for a given index
+     */
+
+    function getUri(uint8 index) public view returns (string memory) {
+        if (index >= s_nftURLs.length || index < 0) {
+            revert RandomizedNFT_IndexOutOfRange(index);
+        }
+        return s_nftURLs[index];
     }
 }

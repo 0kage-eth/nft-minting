@@ -1,6 +1,7 @@
 import { HardhatUserConfig } from "hardhat/config"
 import "@nomiclabs/hardhat-etherscan"
 import "@nomiclabs/hardhat-ethers"
+import "@nomicfoundation/hardhat-chai-matchers"
 import "hardhat-gas-reporter"
 import "dotenv/config"
 import "solidity-coverage"
