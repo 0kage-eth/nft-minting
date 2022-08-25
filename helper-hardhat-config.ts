@@ -28,8 +28,12 @@ export const networkConfig: networkConfigInfo = {
         callbackGasLimit: "500000",
         daiEthPriceFeed: "0x773616E4d11A78F511299002da57A0a94577F1f4",
         daiToken: "0x6b175474e89094c44da98b954eedeac495271d0f",
+        vrfCoordinator: "0x6168499c0cFfCaCD319c818142124B7A15E857ab",
+        linkToken: "0x01BE23585060835E02B77ef475b0Cc51aA1e0709",
+        ethUsdPriceFeed: "0x8A753747A1Fa494EC906cE90E9f37563A8AF630e",
         blockConfirmations: 1,
         minEth: "0.01",
+        subscriptionId: "8854",
     },
     // Price Feed Address, values can be obtained at https://docs.chain.link/docs/reference-contracts
     // Default one is ETH/USD contract on Kovan

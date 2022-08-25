@@ -6,6 +6,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "hardhat/console.sol";
 
 /**
  * @title Randomized NFT Minting
@@ -78,6 +79,7 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         string memory _symbol,
         string[5] memory _nftUris // in this example, I assume a total of 3 uri's
     ) VRFConsumerBaseV2(_vrfCoordinator) ERC721(_name, _symbol) {
+        console.log("vrf coordinator address %s", _vrfCoordinator);
         i_subscriptionId = _subscriptionId;
         // i_owner = msg.sender;
         i_keyHash = _keyhash;
@@ -99,6 +101,10 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         if (msg.value < s_minEth) {
             revert RandomizedNFT_NotEnoughEth(msg.value, s_minEth);
         }
+        console.log("subscription id %s", i_subscriptionId);
+        console.log("gas confirmations %s", i_minimumRequestConfirmations);
+        console.log("call back gas limit %s", i_numWords);
+
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_keyHash,
             i_subscriptionId,
@@ -106,6 +112,8 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
             i_callbackGasLimit,
             i_numWords
         );
+
+        console.log(requestId);
         // maps the request id to msg.sender
         s_minterMapping[requestId] = msg.sender;
         emit NFTRequested(requestId, msg.sender);
@@ -216,5 +224,9 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
             revert RandomizedNFT_IndexOutOfRange(index);
         }
         return s_nftURLs[index];
+    }
+
+    function getTokenId() public view returns (uint256) {
+        return s_tokenId;
     }
 }

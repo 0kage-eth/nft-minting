@@ -84,6 +84,7 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
             vrfContractAddress = vrfContract.address
             const creatSubscriptionTx = await vrfContract.createSubscription()
             const subReceipt = await creatSubscriptionTx.wait(1)
+            console.log("sub receipt args", subReceipt.events![0].args!)
             const subEvent = subReceipt!.events![0]
             subscriptionId = subEvent.args!.subId
             await vrfContract.fundSubscription(subscriptionId, fundLink)
@@ -97,6 +98,9 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
         callbackGasLimit = networkConfig[chainId].callbackGasLimit!
         minEth = networkConfig[chainId].minEth!
         keyHash = networkConfig[chainId].keyHash!
+
+        console.log("subscription id", subscriptionId)
+
         let args: any[] = [
             subscriptionId,
             vrfContractAddress,
@@ -109,7 +113,8 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
             "0K",
             tokenURIs,
         ]
-        console.log("args passed into randomized nft deployer", args)
+        // console.log("args", args)
+        // console.log("args passed into randomized nft deployer", args)
         const txResponse = await deploy("RandomizedNFT", {
             from: deployer,
             log: true,
@@ -118,6 +123,20 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
         })
 
         console.log(`randomized nft contract deployed with txn hash: ${txResponse.transactionHash}`)
+        if (developmentChains.includes(network.name)) {
+            const vrfContract: VRFCoordinatorV2Mock = await ethers.getContract(
+                "VRFCoordinatorV2Mock",
+                deployer
+            )
+            console.log("Adding consumer to VRF contract")
+            /**
+             * @dev this step is critical - wasted a full day as I couldn't figure it out
+             * @dev on creating a subscription, we need to link our nft contract address with subscription id
+             * @dev in essence, nft contract is consumer of chainlink vrf and hence needs to be tagged accordingly
+             */
+            await vrfContract.addConsumer(subscriptionId, txResponse.address)
+            console.log("consumer added")
+        }
     }
 }
 
@@ -173,4 +192,4 @@ const getTokenUris = async () => {
 }
 
 export default deployRandomizedNFT
-deployRandomizedNFT.tags = ["all", "mocks", "main", "randomipfs"]
+deployRandomizedNFT.tags = ["all", "main", "randomipfs"]
