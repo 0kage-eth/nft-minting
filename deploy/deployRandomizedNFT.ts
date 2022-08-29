@@ -3,6 +3,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { networkConfig, developmentChains } from "../helper-hardhat-config"
 import { storeImages, storeMetaData } from "../utils/uploadToPinata"
 import "dotenv/config"
+import { verify } from "../utils/verify"
 
 const imagesLocation = "./images"
 
@@ -136,6 +137,10 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
              */
             await vrfContract.addConsumer(subscriptionId, txResponse.address)
             console.log("consumer added")
+        } else {
+            // verify contract
+
+            verify(txResponse.address, args)
         }
     }
 }
