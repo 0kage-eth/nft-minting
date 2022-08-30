@@ -5,6 +5,7 @@ pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "base64-sol/base64.sol";
+import "hardhat/console.sol";
 
 /**
  * @title Dynamic NFT Minting
@@ -48,7 +49,7 @@ contract DynamicNFT is ERC721 {
      */
 
     function svgToImageUri(string memory svg) public pure returns (string memory) {
-        string memory baseURL = "data:image/svg+xml;base64";
+        string memory baseURL = "data:image/svg+xml;base64,";
 
         string memory svgBase64Encoded = Base64.encode(bytes(string(abi.encodePacked(svg))));
 
@@ -91,12 +92,12 @@ contract DynamicNFT is ERC721 {
             string(
                 abi.encodePacked(
                     _baseURI(),
-                    '{"name":',
+                    '{"name":"',
                     name(),
-                    ',"description":"Price based dynamic NFT"',
-                    ',"image":',
+                    '","description":"Price based dynamic NFT"',
+                    ',"image":"',
                     imageUri,
-                    '"attributes": [{"trait_type": "coolness", "value": 100}]}'
+                    '","attributes": [{"trait_type": "coolness", "value": 100}]}'
                 )
             );
     }
@@ -123,5 +124,10 @@ contract DynamicNFT is ERC721 {
 
     function getPriceFeed() public view returns (AggregatorV3Interface) {
         return i_priceFeed;
+    }
+
+    function getLatestRoundPrice() public view returns (int256) {
+        (, int256 price, , , ) = i_priceFeed.latestRoundData();
+        return price;
     }
 }

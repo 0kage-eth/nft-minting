@@ -1,4 +1,4 @@
-import { VRFCoordinatorV2Mock } from "../typechain-types"
+import { VRFCoordinatorV2Mock, VRFCoordinatorV2Interface } from "../typechain-types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { networkConfig, developmentChains } from "../helper-hardhat-config"
 import { storeImages, storeMetaData } from "../utils/uploadToPinata"
