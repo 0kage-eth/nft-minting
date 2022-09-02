@@ -6,8 +6,8 @@ import "dotenv/config"
 const pinataApiKey: string = process.env.PINATA_API_KEY || ""
 const pinataApiSecret: string = process.env.PINATA_API_SECRET || ""
 
-console.log("pinata api key", pinataApiKey)
-console.log("pinata api secret", pinataApiSecret)
+// console.log("pinata api key", pinataApiKey)
+// console.log("pinata api secret", pinataApiSecret)
 
 const pinata = pinataSDK(pinataApiKey, pinataApiSecret)
 

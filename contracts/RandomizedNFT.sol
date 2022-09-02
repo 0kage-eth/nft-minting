@@ -101,9 +101,9 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         if (msg.value < s_minEth) {
             revert RandomizedNFT_NotEnoughEth(msg.value, s_minEth);
         }
-        console.log("subscription id %s", i_subscriptionId);
-        console.log("gas confirmations %s", i_minimumRequestConfirmations);
-        console.log("call back gas limit %s", i_numWords);
+        // console.log("subscription id %s", i_subscriptionId);
+        // console.log("gas confirmations %s", i_minimumRequestConfirmations);
+        // console.log("call back gas limit %s", i_numWords);
 
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_keyHash,
@@ -113,7 +113,7 @@ contract RandomizedNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
             i_numWords
         );
 
-        console.log(requestId);
+        // console.log(requestId);
         // maps the request id to msg.sender
         s_minterMapping[requestId] = msg.sender;
         emit NFTRequested(requestId, msg.sender);

@@ -27,7 +27,7 @@ const deployNFT: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
     // Verifying contract only if it is not part of development chains
     if (!isDevelopmentChain) {
-        console.log("Verifying contract...")
+        // console.log("Verifying contract...")
 
         await verify(basicNft.address, args)
     }

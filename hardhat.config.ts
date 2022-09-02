@@ -65,6 +65,7 @@ const config: HardhatUserConfig = {
             //   },
             saveDeployments: true,
             chainId: 4,
+            gas: 6000000,
         },
         mainnet: {
             url: MAINNET_RPC_URL,
@@ -89,6 +90,7 @@ const config: HardhatUserConfig = {
             goerli: ETHERSCAN_API_KEY,
             polygon: POLYGONSCAN_API_KEY,
         },
+        customChains: [],
     },
     gasReporter: {
         enabled: true,
@@ -97,6 +99,7 @@ const config: HardhatUserConfig = {
         noColors: true,
         // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     },
+
     namedAccounts: {
         deployer: {
             default: 0, // here this will by default take the first account as deployer

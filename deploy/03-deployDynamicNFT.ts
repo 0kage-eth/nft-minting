@@ -41,9 +41,9 @@ const deployDynamicNFT = async (hre: HardhatRuntimeEnvironment) => {
     })
     // verify contract
     if (!developmentChains.includes(network.name)) {
-        log("verifying contract...")
+        // log("verifying contract...")
         await verify(tx.address, args)
-        log("contract verified...")
+        // log("contract verified...")
     }
 }
 

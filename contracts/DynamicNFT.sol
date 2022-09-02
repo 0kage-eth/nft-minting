@@ -92,12 +92,18 @@ contract DynamicNFT is ERC721 {
             string(
                 abi.encodePacked(
                     _baseURI(),
-                    '{"name":"',
-                    name(),
-                    '","description":"Price based dynamic NFT"',
-                    ',"image":"',
-                    imageUri,
-                    '","attributes": [{"trait_type": "coolness", "value": 100}]}'
+                    Base64.encode(
+                        bytes(
+                            abi.encodePacked(
+                                '{"name":"',
+                                name(),
+                                '","description":"Price based dynamic NFT"',
+                                ',"image":"',
+                                imageUri,
+                                '","attributes": [{"trait_type": "coolness", "value": 100}]}'
+                            )
+                        )
+                    )
                 )
             );
     }

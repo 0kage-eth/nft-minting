@@ -85,7 +85,7 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
             vrfContractAddress = vrfContract.address
             const creatSubscriptionTx = await vrfContract.createSubscription()
             const subReceipt = await creatSubscriptionTx.wait(1)
-            console.log("sub receipt args", subReceipt.events![0].args!)
+            // console.log("sub receipt args", subReceipt.events![0].args!)
             const subEvent = subReceipt!.events![0]
             subscriptionId = subEvent.args!.subId
             await vrfContract.fundSubscription(subscriptionId, fundLink)
@@ -100,7 +100,7 @@ const deployRandomizedNFT = async (hre: HardhatRuntimeEnvironment) => {
         minEth = networkConfig[chainId].minEth!
         keyHash = networkConfig[chainId].keyHash!
 
-        console.log("subscription id", subscriptionId)
+        // console.log("subscription id", subscriptionId)
 
         let args: any[] = [
             subscriptionId,
